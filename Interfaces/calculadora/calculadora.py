@@ -23,6 +23,13 @@ class Ui_MainWindow(object):
         self.gridLayoutWidget = QtWidgets.QWidget(parent=self.centralwidget)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 90, 361, 351))
         
+        # Atributos de estado
+        self.operando1 = ""
+        self.operando2 = ""
+        self.operacion = ""
+        
+        
+        # Grid
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -36,27 +43,34 @@ class Ui_MainWindow(object):
         # Números
         self.btn_0 = crea_boton(self.gridLayoutWidget, "btn_0")
         self.gridLayout.addWidget(self.btn_0, 4, 1, 1, 1)
-        self.btn_0.clicked.connect(self.numero0)
-        
-        
+        self.btn_0.clicked.connect(lambda: self.numero_marcado("0"))
         self.btn_1 = crea_boton(self.gridLayoutWidget, "btn_1")
         self.gridLayout.addWidget(self.btn_1, 1, 0, 1, 1)
+        self.btn_1.clicked.connect(lambda: self.numero_marcado("1"))
         self.btn_2 = crea_boton(self.gridLayoutWidget, "btn_2")
         self.gridLayout.addWidget(self.btn_2, 1, 1, 1, 1)
+        self.btn_2.clicked.connect(lambda: self.numero_marcado("2"))
         self.btn_3 = crea_boton(self.gridLayoutWidget, "btn_3")
         self.gridLayout.addWidget(self.btn_3, 1, 2, 1, 1)
+        self.btn_3.clicked.connect(lambda: self.numero_marcado("3"))
         self.btn_4 = crea_boton(self.gridLayoutWidget, "btn_4")
         self.gridLayout.addWidget(self.btn_4, 2, 0, 1, 1)
+        self.btn_4.clicked.connect(lambda: self.numero_marcado("4"))
         self.btn_5 = crea_boton(self.gridLayoutWidget, "btn_5")
         self.gridLayout.addWidget(self.btn_5, 2, 1, 1, 1)
+        self.btn_5.clicked.connect(lambda: self.numero_marcado("5"))
         self.btn_6 = crea_boton(self.gridLayoutWidget, "btn_6")
         self.gridLayout.addWidget(self.btn_6, 2, 2, 1, 1)
+        self.btn_6.clicked.connect(lambda: self.numero_marcado("6"))
         self.btn_7 = crea_boton(self.gridLayoutWidget, "btn_7")
         self.gridLayout.addWidget(self.btn_7, 3, 0, 1, 1)
+        self.btn_7.clicked.connect(lambda: self.numero_marcado("7"))
         self.btn_8 = crea_boton(self.gridLayoutWidget, "btn_8")
         self.gridLayout.addWidget(self.btn_8, 3, 1, 1, 1)
+        self.btn_8.clicked.connect(lambda: self.numero_marcado("8"))
         self.btn_9 = crea_boton(self.gridLayoutWidget, "btn_9")
         self.gridLayout.addWidget(self.btn_9, 3, 2, 1, 1)
+        self.btn_9.clicked.connect(lambda: self.numero_marcado("9"))
         
         self.btn_porcentaje = crea_boton(self.gridLayoutWidget, "btn_porcentaje")
         self.gridLayout.addWidget(self.btn_porcentaje, 0, 2, 1, 1)
@@ -96,9 +110,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
-    def numero0(self, value):
-        print("Marcado el 0")
-        print(value)
+    def numero_marcado(self, numero):
+        print(numero)
+        self.lcdNumber.display(numero)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
