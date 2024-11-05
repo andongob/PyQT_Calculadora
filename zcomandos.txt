@@ -1,0 +1,2 @@
+pyuic6 -x calculadora.ui -o calculadora.py: (convierte un archivo .ui, que es la extensión del PyQT Designer a .py)
+pip freeze > requirements.txt : (indica las versiones de cada librería para tenerlas en cuenta a futuro)
