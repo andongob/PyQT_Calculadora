@@ -91,7 +91,8 @@ class Ui_MainWindow(object):
         
         self.btn_borrar = crea_boton(self.gridLayoutWidget, "btn_borrar")
         self.gridLayout.addWidget(self.btn_borrar, 0, 0, 1, 2)
-         
+        self.btn_borrar.clicked.connect(self.borra)
+
         self.btn_resultado = crea_boton(self.gridLayoutWidget, "btn_resultado")
         self.gridLayout.addWidget(self.btn_resultado, 4, 2, 1, 1)
         self.btn_resultado.clicked.connect(self.calcula_resultado)
@@ -99,19 +100,14 @@ class Ui_MainWindow(object):
         self.btn_signo = crea_boton(self.gridLayoutWidget, "btn_signo")
         self.gridLayout.addWidget(self.btn_signo, 4, 3, 1, 1)
         self.btn_signo.clicked.connect(self.cambia_signo)
-
-        # Botones de operación
-        self.btn_dividir = crea_boton(self.gridLayoutWidget, "btn_dividir")
-        self.gridLayout.addWidget(self.btn_dividir, 0, 3, 1, 1)
-        self.btn_dividir.clicked.connect(lambda: self.establece_operacion("dividir"))
         
         # Conectar otros botones de operación de manera similar
         self.btn_sumar.clicked.connect(lambda: self.establece_operacion("sumar"))
         self.btn_restar.clicked.connect(lambda: self.establece_operacion("restar"))
         self.btn_multiplicar.clicked.connect(lambda: self.establece_operacion("multiplicar"))
-        
+        self.btn_dividir.clicked.connect(lambda: self.establece_operacion("dividir"))
 
-        
+
         MainWindow.setCentralWidget(self.centralwidget)
         
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
