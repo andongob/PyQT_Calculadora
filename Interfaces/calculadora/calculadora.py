@@ -4,6 +4,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 from lcd import lcd
 from boton import crea_boton
+from calculo import calculo
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -81,6 +82,8 @@ class Ui_MainWindow(object):
         
         self.btn_dividir = crea_boton(self.gridLayoutWidget, "btn_dividir")
         self.gridLayout.addWidget(self.btn_dividir, 0, 3, 1, 1)
+        self.btn_dividir.clicked.connect(lambda: self.establece_operacion("dividir"))
+                
         
         self.btn_decimal = crea_boton(self.gridLayoutWidget, "btn_decimal")
         self.gridLayout.addWidget(self.btn_decimal, 4, 0, 1, 1)
@@ -91,10 +94,22 @@ class Ui_MainWindow(object):
          
         self.btn_resultado = crea_boton(self.gridLayoutWidget, "btn_resultado")
         self.gridLayout.addWidget(self.btn_resultado, 4, 2, 1, 1)
+        self.btn_resultado.clicked.connect(self.calcula_resultado)
 
         self.btn_signo = crea_boton(self.gridLayoutWidget, "btn_signo")
         self.gridLayout.addWidget(self.btn_signo, 4, 3, 1, 1)
         self.btn_signo.clicked.connect(self.cambia_signo)
+
+        # Botones de operación
+        self.btn_dividir = crea_boton(self.gridLayoutWidget, "btn_dividir")
+        self.gridLayout.addWidget(self.btn_dividir, 0, 3, 1, 1)
+        self.btn_dividir.clicked.connect(lambda: self.establece_operacion("dividir"))
+        
+        # Conectar otros botones de operación de manera similar
+        self.btn_sumar.clicked.connect(lambda: self.establece_operacion("sumar"))
+        self.btn_restar.clicked.connect(lambda: self.establece_operacion("restar"))
+        self.btn_multiplicar.clicked.connect(lambda: self.establece_operacion("multiplicar"))
+        
 
         
         MainWindow.setCentralWidget(self.centralwidget)
@@ -149,12 +164,27 @@ class Ui_MainWindow(object):
         self.statusbar.showMessage(f"{self.operando1}, {self.operacion}, {self.operando2}", 1000)
 
 
+    def establece_operacion(self, operacion):
+        """Establece la operación actual y prepara para el segundo operando."""
+        self.operacion = operacion
+        self.lcdNumber.display("")  # Limpia la pantalla para el segundo operando
+
     def borra(self):
-        pass
+        """Limpia todos los operandos y la operación actual."""
+        self.operando1 = ""
+        self.operando2 = ""
+        self.operacion = ""
+        self.lcdNumber.display("0")
+        self.statusbar.showMessage("Calculadora restablecida", 1000)
 
 
     def calcula_resultado(self):
-        pass
+        resultado = calculo(self.operando1, self.operacion, self.operando2)
+        print(resultado)
+        self.lcdNumber.display(resultado)
+        self.operando1 = resultado
+        self.operacion = ""
+        self.operando2 = ""
     
 
     def retranslateUi(self, MainWindow):
