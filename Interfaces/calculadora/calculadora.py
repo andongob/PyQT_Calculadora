@@ -94,6 +94,8 @@ class Ui_MainWindow(object):
 
         self.btn_signo = crea_boton(self.gridLayoutWidget, "btn_signo")
         self.gridLayout.addWidget(self.btn_signo, 4, 3, 1, 1)
+        self.btn_signo.clicked.connect(self.cambia_signo)
+
         
         MainWindow.setCentralWidget(self.centralwidget)
         
@@ -129,6 +131,31 @@ class Ui_MainWindow(object):
                 self.operando1 += "."
                 self.lcdNumber.display(str(self.operando1))  # Mostrar `operando1` como cadena
         self.statusbar.showMessage(f"{self.operando1}, {self.operacion}, {self.operando2}", 1000)
+
+    def cambia_signo(self):
+        """Añade un signo negativo al operando actual """
+        if self.operacion:
+            if self.operando2.startswith("-"):
+                self.operando2 = self.operando2[1:]
+            else:
+                self.operando2 = "-" + self.operando2
+            self.lcdNumber.display(str(self.operando2))  # Mostrar `operando2` como cadena
+        else:
+            if self.operando1.startswith("-"):
+                self.operando1 = self.operando1[1:]
+            else:
+                self.operando1 = "-" + self.operando1
+            self.lcdNumber.display(str(self.operando1))  # Mostrar `operando1` como cadena
+        self.statusbar.showMessage(f"{self.operando1}, {self.operacion}, {self.operando2}", 1000)
+
+
+    def borra(self):
+        pass
+
+
+    def calcula_resultado(self):
+        pass
+    
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
